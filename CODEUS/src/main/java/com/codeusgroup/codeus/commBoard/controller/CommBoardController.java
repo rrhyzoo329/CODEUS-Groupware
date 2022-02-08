@@ -717,7 +717,7 @@ public ModelAndView marketSearch( ModelAndView mv, Search search,
 
 
 //쇼핑몰 최신순, 판매순, 낮은가격순, 높은 가격순 조건 검색
-	@RequestMapping("poption.bo")
+	@RequestMapping("marketSort.bo")
 	public ModelAndView productOption(@RequestParam(value="page", required=false) Integer page,
 									  @RequestParam("option") String option,
 									  ModelAndView mv) {
@@ -727,15 +727,25 @@ public ModelAndView marketSearch( ModelAndView mv, Search search,
 			currentPage = page;
 		}
 
-		int listCount = mbService.getListOptionCount(option);// 총 게시글 수
+		int listCount = mbService.getListOptionCount(option);
+		
+		System.out.println(listCount);
 
 		PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
 		
-		ArrayList<MarketBoard> mlist = mbService.selectOptionPList(option, pi);
-	
+		ArrayList<MarketBoard> mlist = mbService.selectOptionList(option, pi);
+		
+		ArrayList<MarketAtt> attList = new ArrayList<MarketAtt>();
+		
+		for(MarketBoard b : mlist) {
+			MarketAtt att = mbService.selectAttachmentList(b.getbId());
+			attList.add(att);
+		}
+		
 
 		if (mlist != null) {
 			mv.addObject("mlist", mlist)
+			.addObject("attList", attList)
 			   .addObject("pi", pi)
 			   .setViewName("commMarketList");
 			

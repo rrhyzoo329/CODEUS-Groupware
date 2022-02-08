@@ -118,17 +118,16 @@ public class marketDAO {
 	}
 
 
-
-	public ArrayList<MarketBoard> selectOptionPList(SqlSessionTemplate sqlSession, String option, PageInfo pi) {
-		int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
-		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
-		
-		return (ArrayList)sqlSession.selectList("marketMapper.selectOptionPList", option, rowBounds);
+	public int updateimage(SqlSessionTemplate sqlSession, MarketAtt at) {
+		return sqlSession.update("marketMapper.updateimage", at);
 	}
 
 
 
-	public int updateimage(SqlSessionTemplate sqlSession, MarketAtt at) {
-		return sqlSession.update("marketMapper.updateimage", at);
+	public ArrayList<MarketBoard> selectOptionList(SqlSessionTemplate sqlSession, String option, PageInfo pi) {
+		int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
+		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
+		
+		return (ArrayList)sqlSession.selectList("marketMapper.selectOptionList", option, rowBounds);
 	}
 }

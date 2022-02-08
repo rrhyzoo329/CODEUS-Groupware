@@ -93,13 +93,14 @@ public class marketBoardServiceImpl implements marketBoardService {
 		public int getListOptionCount(String option) {
 			return mbDAO.getListOptionCount(sqlSession, option);
 		}
-		@Override
-		public ArrayList<MarketBoard> selectOptionPList(String option, PageInfo pi) {
-			return mbDAO.selectOptionPList(sqlSession, option, pi);
-		}
+		
 		@Override
 		public int updateimage(MarketAtt at) {
 			return mbDAO.updateimage(sqlSession,at);
+		}
+		@Override
+		public ArrayList<MarketBoard> selectOptionList(String option, PageInfo pi) {
+			return mbDAO.selectOptionList(sqlSession, option, pi);
 		}
 		
 		

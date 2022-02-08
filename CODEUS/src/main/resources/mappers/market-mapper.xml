@@ -183,33 +183,36 @@
 	
 	
 	
-	<select id="getListOptionCount" resultType="_int">
+	<select id="getListOptionCount" resultType="_int" parameterType ="string">
 		select count(*)
 		from BOARD
 		where B_STATUS = '0' AND B_TYPE = '중고'
-		<if test="option == '최신순'">
-			order by b_date DESC
+		<if test="value == 'new'">
+			order by B_CREARE_DATE DESC
 		</if>
-		<if test="option == '낮은가격순'">
-			order by p_price
+		<if test="value == 'lowprice'">
+			order by B_ETC
 		</if>
-		<if test="option == '높은가격순'">
-			order by p_price DESC
+		<if test="value == 'highprice'">
+			order by B_ETC DESC
 		</if>
 	</select>
 	
-	<select id="selectOptionPList" resultMap="marketboardResultSet">
-		select * 
-		from BOARD
+	<select id="selectOptionList" resultMap="marketboardResultSet">
+		SELECT B_NUM, B_TYPE, B_TITLE, B_VIEWS, B_CREARE_DATE, B_MODIFY_DATE, B_STATUS, 
+			   B_PIN, B.M_ID M_ID,B_ETC, B_CATEGORY, B_CONTENT
+			   
+		FROM BOARD B
+			LEFT JOIN MEMBER M ON(B.M_ID = M.M_ID)
 		where B_STATUS = '0' AND B_TYPE = '중고'
-		<if test="option == '최신순'">
-			order by b_date DESC
+		<if test="value == 'new'">
+			order by B_CREARE_DATE DESC
 		</if>
-		<if test="option == '낮은가격순'">
-			order by p_price
+		<if test="value == 'lowprice'">
+			order by B_ETC
 		</if>
-		<if test="option == '높은가격순'">
-			order by p_price DESC
+		<if test="value == 'highprice'">
+			order by B_ETC DESC
 		</if>
 	</select>
 

@@ -41,9 +41,11 @@ public interface marketBoardService {
 	int getScrapStatus(HashMap<String, String> map);
 
 
+	
+	
 	int getListOptionCount(String option);
 
-	ArrayList<MarketBoard> selectOptionPList(String option, PageInfo pi);
+	ArrayList<MarketBoard> selectOptionList(String option, PageInfo pi);
 
 
 	

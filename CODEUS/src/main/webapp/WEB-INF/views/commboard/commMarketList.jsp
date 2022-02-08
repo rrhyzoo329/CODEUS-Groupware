@@ -119,6 +119,44 @@
 									</ul>
 								</a>
 							</c:forEach>
+							<c:forEach var="mb" items="${ mlist }">
+									<a href="marketDetail.bo?bId=${mb.bId}&page=${pi.currentPage}">
+									<ul>
+										<li style="float: left; padding: 20px; display: inline-block; white-space: nowrap;" >
+											<div class="row" style="">
+												<div class="col-xl-4 col-xxl-6 col-lg-6 col-sm-6"
+													style="float: left; padding: 20px; display: inline-block;">
+													<div class="card" 
+														style="float: left; padding: 20px; display: inline-block;">
+														<div class="card-header">
+															<c:forEach var="att" items="${attList}">
+																<c:if test="${ mb.bId eq att.bId }">
+																	<div id="file${ att.fileNo}" class="file">
+																		<img id="img${ att.fileNo }"
+																			src="${contextPath}/resources/buploadFiles/${ att.reFileName }"
+																			width="300" height="300" download><br>
+																	</div>
+																</c:if>
+															</c:forEach>
+														</div>
+														<div class="card-body">
+															<p class="card-title" style="font-size : 20px; text-align: center;"><b>${ mb.mbTitle }</b></p>
+														</div>
+														<div class="card-footer">
+															<p class="card-text d-inline">${ mb.marketPrice }원</p>
+															<p class="card-link float-right">
+																<img
+																	src='${contextPath}/resources/assets/images/views.png'>&nbsp;
+																&nbsp;${ mb.mbViews }
+															</p>
+														</div>
+													</div>
+												</div>
+											</div>
+										</li>
+									</ul>
+								</a>
+							</c:forEach>
 						</div>
 						</div>
 								<br>
@@ -129,7 +167,7 @@
 										<td colspan="9">검색 결과가 없습니다.</td>
 									</tr>
 								</c:if>
-								<c:if test="${ empty list }">
+								<c:if test="${ empty list && empty mlist}">
 									<tr>
 										<td colspan="6">등록된 게시물이 없습니다.</td>
 									</tr>
@@ -235,9 +273,8 @@
 		</div>
 
 		<script>
-	var searchText;
-	var searchOption;
 	var option;
+	
 		$('#a1').click(function(){
 			option = 'new';
 			location.href = 'marketSort.bo?option=' + option;
